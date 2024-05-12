@@ -8,6 +8,9 @@ import Footer from "./layouts/header_footer/Footer";
 import product from "./models/Product";
 import AccountOrder from "./layouts/account/AccountOrder";
 import Wishlist from "./layouts/account/WishList";
+import Shop from "./layouts/shop/List";
+import Cart from "./layouts/Cart/Cart";
+import Checkout from "./layouts/Checkout/Checkout";
 
 function App() {
   const [product, setProduct] = useState<product[]>([]);
