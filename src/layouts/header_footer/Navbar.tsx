@@ -660,11 +660,13 @@ const Navbar: React.FC = () => {
                 </a>
               </li>
               <li className="nav-item ms-lg-n4">
-                <a className="nav-link" data-bs-toggle="offcanvas" href="#modalShoppingCart">
-                  <span data-cart-items="2">
-                    <i className="fe fe-shopping-cart"></i>
-                  </span>
-                </a>
+                <Link to={`cart`}>
+                  <a className="nav-link" data-bs-toggle="offcanvas" href="#modalShoppingCart">
+                    <span data-cart-items="2">
+                      <i className="fe fe-shopping-cart"></i>
+                    </span>
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>
