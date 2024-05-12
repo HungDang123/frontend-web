@@ -2,9 +2,12 @@ import React from "react";
 import product from "../../../models/Product";
 import { Link } from "react-router-dom";
 interface productProps {
+  data: product[];
   product: product;
+  setProduct: (prod: product[]) => void;
 }
-const Furniture: React.FC<productProps> = ({ product }) => {
+const Furniture: React.FC<productProps> = ({ data,product, setProduct }) => {
+  data.push(product);
   return (
     <div className="col-6 col-md-4 col-lg-3">
       <div className="card mb-7">
@@ -30,13 +33,12 @@ const Furniture: React.FC<productProps> = ({ product }) => {
           <div className="card-actions">
             <Link to={`furniture/${product.id}`}>
               <span className="card-action">
-                <button
-                  className="btn btn-xs btn-circle btn-white-primary">
+                <button className="btn btn-xs btn-circle btn-white-primary">
                   <i className="fe fe-eye"></i>
                 </button>
               </span>
             </Link>
-            <span className="card-action">
+            <span className="card-action" onClick={() => setProduct([...data,product])}>
               <button
                 className="btn btn-xs btn-circle btn-white-primary"
                 data-toggle="button"

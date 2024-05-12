@@ -6,32 +6,64 @@ import Description from "./component/Description";
 const products: product[] = [
   new product(
     "1",
-    "Áo thun nam",
-    ["Áo thời trang", "Áo du lịch"],
+    "Bàn nước Fence",
+    ["Bàn nước", "Phòng khách "],
     200000,
     30000,
-    ["assets/img/products/product-120.jpg", "assets/img/products/product-5.jpg"],1
+    [
+      "assets/img/products/table1_1.jpg",
+      "assets/img/products/table1_2.jpg",
+    ],
+    1
   ),
   new product(
     "2",
-    "Quần jean nữ",
-    ["Quần áo nữ", "Quần áo thời trang"],
+    "Sofa Bolero 3 chỗ + Đôn M3 vải MB 40-15",
+    ["Phòng khách", "Sofa"],
     350000,
     40000,
-    ["assets/img/products/product-121.jpg", "assets/img/products/product-6.jpg"],2
+    [
+      "assets/img/products/sofa2_1.jpg",
+      "assets/img/products/sofa2_2.jpg",
+    ],
+    2
   ),
-  new product("3", "Đồng hồ đeo tay", ["Phụ kiện", "Đồng hồ"], 500000, 60000, [
-    "assets/img/products/product-122.jpg",
-    "assets/img/products/product-7.jpg",
-  ],3),
-  new product("4", "Đồng hồ đeo tay", ["Phụ kiện", "Đồng hồ"], 500000, 70000, [
-    "assets/img/products/product-123.jpg",
-    "assets/img/products/product-8.jpg",
-  ],4),
-  new product("5", "Đồng hồ đeo tay", ["Phụ kiện", "Đồng hồ"], 500000, 80000, [
-    "assets/img/products/product-124.jpg",
-    "assets/img/products/product-9.jpg",
-  ],5),
+  new product(
+    "3",
+    "Sofa Coastal 1 chỗ vải vàng",
+    ["Phòng khách", "Sofa"],
+    500000,
+    60000,
+    [
+      "assets/img/products/sofa4_1.jpg",
+      "assets/img/products/sofa4_2.jpg",
+    ],
+    3
+  ),
+  new product(
+    "4",
+    "Nệm Sen Việt 1m8",
+    ["Nệm", "Phòng ngủ"],
+    500000,
+    70000,
+    [
+      "assets/img/products/mattress1_1.jpg",
+      "assets/img/products/mattress1_2.jpg",
+    ],
+    4
+  ),
+  new product(
+    "5",
+    "Sofa 2 chỗ Tết vải vact10499",
+    ["Phòng khách", "Sofa"],
+    500000,
+    80000,
+    [
+      "assets/img/products/sofa1_1.jpg",
+      "assets/img/products/sofa1_2.jpg",
+    ],
+    5
+  ),
   // Thêm các sản phẩm khác ở đây nếu cần
 ];
 const FurnitureDetail: React.FC = () => {
