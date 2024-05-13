@@ -133,12 +133,7 @@ return (
       <div className="py-6">
         <div className="container">
           <div className="row">
-            <div className="col">
-              <p className="mb-3 mb-md-0 fs-xxs text-muted">
-                © 2019 All rights reserved. Designed by Unvab.
-              </p>
-            </div>
-            <div className="col-auto">
+            <div className="col-auto d-flex justity-content-center">
               <img className="footer-payment" src="./assets/img/payment/mastercard.svg" alt="..."/>
               <img className="footer-payment" src="./assets/img/payment/visa.svg" alt="..."/>
               <img className="footer-payment" src="./assets/img/payment/amex.svg" alt="..."/>
