@@ -11,6 +11,7 @@ import Wishlist from "./layouts/account/WishList";
 import Shop from "./layouts/shop/List";
 import Cart from "./layouts/Cart/Cart";
 import Checkout from "./layouts/Checkout/Checkout";
+import Login from "./layouts/Login/Login";
 
 function App() {
   const [product, setProduct] = useState<product[]>([]);
@@ -28,6 +29,7 @@ function App() {
           <Route path="/account-wishlist" element={<Wishlist />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/checkout" element={<Checkout />} />
         </Routes>
         <Footer />
