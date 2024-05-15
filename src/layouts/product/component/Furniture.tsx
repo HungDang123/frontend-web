@@ -33,7 +33,7 @@ const Furniture: React.FC<productProps> = ({ data,product, setProduct }) => {
           <div className="card-actions">
             <Link to={`furniture/${product.id}`}>
               <span className="card-action">
-                <button className="btn btn-xs btn-circle btn-white-primary">
+                <button className="btn btn-xs btn-circle btn-white-primary" title="view">
                   <i className="fe fe-eye"></i>
                 </button>
               </span>
@@ -49,7 +49,7 @@ const Furniture: React.FC<productProps> = ({ data,product, setProduct }) => {
             <span className="card-action">
               <button
                 className="btn btn-xs btn-circle btn-white-primary"
-                data-toggle="button"
+                data-toggle="button" title="wishlist"
               >
                 <i className="fe fe-heart"></i>
               </button>

@@ -21,7 +21,7 @@ const Detail: React.FC<productProps> = ({ product }) => {
 
                   {/* <!-- Slider --> */}
                   <div
-                    className="mb-4 flickity-enabled is-fade"
+                    className="mb-2 flickity-enabled is-fade"
                     data-flickity='{"draggable": false, "fade": true}'
                     id="productSlider"
                     tabIndex={0}
@@ -34,7 +34,7 @@ const Detail: React.FC<productProps> = ({ product }) => {
 
                     <div
                       className="flickity-viewport"
-                      style={{ height: "530.963px" }}
+                      style={{ height: "300.963px" }}
                     >
                       <div
                         className="flickity-slider"
@@ -159,9 +159,9 @@ const Detail: React.FC<productProps> = ({ product }) => {
                            {renderStar(product.rating)}
                         </ul>
                         <span>{product.rating}</span>
-                        <span>(? đánh giá)</span>
+                        <span>(undifined đánh giá)</span>
                      </a>
-                     <span className="cl-gray">Đã bán ?</span>
+                     <span className="cl-gray">Đã bán undifined</span>
                   </div>
                 {/* <!-- Price --> */}
                 <div className="mb-7">
@@ -206,7 +206,7 @@ const Detail: React.FC<productProps> = ({ product }) => {
                         >
                           -
                         </button>
-                        <input type="text" name="quantity" value={1} min={1} />
+                        <input type="text" name="quantity" value={1} min={1}  title="plus"/>
                         <button
                           className="plus-btn"
                           type="button"

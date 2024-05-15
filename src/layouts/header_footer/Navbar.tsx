@@ -1,26 +1,118 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import product from "../../models/Product";
-import renderCart from "../../utils/Cart";
-import RenderCart from "../../utils/Cart";
 import { Link } from "react-router-dom";
+import { Modal, Offcanvas } from "react-bootstrap";
+import { useAuth } from "../../contexts/AuthContext";
 interface NavbarProps {
   product: product[];
 }
+const products: product[] = [
+  new product(
+    "1",
+    "Bàn nước Fence",
+    ["Bàn nước", "Phòng khách "],
+    200000,
+    30000,
+    ["assets/img/products/table1_1.jpg", "assets/img/products/table1_2.jpg"],
+    1
+  ),
+  new product(
+    "2",
+    "Sofa Bolero 3 chỗ + Đôn M3 vải MB 40-15",
+    ["Phòng khách", "Sofa"],
+    350000,
+    40000,
+    ["assets/img/products/sofa2_1.jpg", "assets/img/products/sofa2_2.jpg"],
+    2
+  ),
+  new product(
+    "3",
+    "Sofa Coastal 1 chỗ vải vàng",
+    ["Phòng khách", "Sofa"],
+    500000,
+    60000,
+    ["assets/img/products/sofa4_1.jpg", "assets/img/products/sofa4_2.jpg"],
+    3
+  ),
+  new product(
+    "4",
+    "Nệm Sen Việt 1m8",
+    ["Nệm", "Phòng ngủ"],
+    500000,
+    70000,
+    [
+      "assets/img/products/mattress1_1.jpg",
+      "assets/img/products/mattress1_2.jpg",
+    ],
+    4
+  ),
+  new product(
+    "5",
+    "Sofa 2 chỗ Tết vải vact10499",
+    ["Phòng khách", "Sofa"],
+    500000,
+    80000,
+    ["assets/img/products/sofa1_1.jpg", "assets/img/products/sofa1_2.jpg"],
+    5
+  ),
+  new product(
+    "6",
+    "Sofa ONA HIM 1 chỗ da nâu S3",
+    ["Armchair", "Sofa "],
+    200000,
+    30000,
+    ["assets/img/products/sofa5_1.jpg", "assets/img/products/sofa5_2.jpg"],
+    4
+  ),
+  new product(
+    "7",
+    "Sofa Bolero 3 chỗ + Đôn M3 vải xám MB4010",
+    ["Phòng khách", "Sofa"],
+    350000,
+    40000,
+    ["assets/img/products/sofa3_1.jpg", "assets/img/products/sofa3_2.jpg"],
+    3
+  ),
+  new product(
+    "8",
+    "bàn nước bar 200x75 75167k",
+    ["Bàn nước", "Phòng khách "],
+    200000,
+    30000,
+    ["assets/img/products/table3_1.jpg", "assets/img/products/table3_2.jpg"],
+    1
+  ),
+  // Thêm các sản phẩm khác ở đây nếu cần
+];
 const Navbar: React.FC<NavbarProps> = ({ product }) => {
-  const [visibility, setVisibility] = useState(false);
-  console.log(visibility);
+  const [showCart, setShowCart] = useState(false);
+  const [showSearch, setShowSearch] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [category, setCategory] = useState("");
+
+  const { isLoggedIn } = useAuth();
+  console.log(isLoggedIn);
+
+  const handleShowCart = () => setShowCart(true);
+  const handleCloseCart = () => setShowCart(false);
+
+  const handleShowSearch = () => setShowSearch(true);
+  const handleCloseSearch = () => setShowSearch(false);
+  useEffect(() => {
+    let sum = product.reduce((acc, item) => acc + item.price, 0);
+    setTotal(sum);
+  }, [product]);
 
   return (
     <div>
-      <RenderCart product={product} v={visibility} />{" "}
-      {/* Pass visibility as v */}
       <Fragment>
         <nav className="navbar navbar-expand-lg navbar-light bg-white">
           <div className="container">
-            <a className="navbar-brand" href="/">
+           <Link to={"/"}>
+           <a className="navbar-brand" >
               {" "}
               Shopper.{" "}
-            </a>
+            </a></Link>
 
             <button
               className="navbar-toggler"
@@ -37,23 +129,24 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
             <div className="collapse navbar-collapse" id="navbarCollapse">
               <ul className="navbar-nav mx-auto">
                 <li className="nav-item dropdown">
-                  <a className="nav-link" data-bs-toggle="dropdown" href="#">
+                 <Link to={"/"}>
+                 <a className="nav-link" data-bs-toggle="dropdown" >
                     Home
-                  </a>
+                  </a></Link>
 
                   <div className="dropdown-menu">
                     <div className="card card-lg">
                       <div className="card-body">
                         <ul className="list-styled fs-sm">
                           <li className="list-styled-item">
-                            <a className="list-styled-link" href="./index.html">
+                            <a className="list-styled-link" href="./index">
                               Default
                             </a>
                           </li>
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./index-classNameic.html"
+                              href="./index-classNameic"
                             >
                               classNameic
                             </a>
@@ -61,7 +154,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./index-fashion.html"
+                              href="./index-fashion"
                             >
                               Fashion
                             </a>
@@ -69,7 +162,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./index-boxed.html"
+                              href="./index-boxed"
                             >
                               Boxed
                             </a>
@@ -77,7 +170,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./index-simple.html"
+                              href="./index-simple"
                             >
                               Simple
                             </a>
@@ -85,7 +178,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./index-asymmetric.html"
+                              href="./index-asymmetric"
                             >
                               Asymmetric
                             </a>
@@ -93,7 +186,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./index-sidenav.html"
+                              href="./index-sidenav"
                             >
                               Sidenav
                             </a>
@@ -101,7 +194,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./index-landing.html"
+                              href="./index-landing"
                             >
                               Landing
                             </a>
@@ -165,7 +258,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         All Clothing
                                       </a>
@@ -173,7 +266,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Blouses &amp; Shirts
                                       </a>
@@ -181,7 +274,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Coats &amp; Jackets
                                       </a>
@@ -189,7 +282,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Dresses
                                       </a>
@@ -197,7 +290,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Hoodies &amp; Sweats
                                       </a>
@@ -205,7 +298,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Denim
                                       </a>
@@ -213,7 +306,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Jeans
                                       </a>
@@ -221,7 +314,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Jumpers &amp; Cardigans
                                       </a>
@@ -229,7 +322,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Leggings
                                       </a>
@@ -245,7 +338,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         All Shoes &amp; Boots
                                       </a>
@@ -253,7 +346,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Branded Shoes
                                       </a>
@@ -261,7 +354,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Boots
                                       </a>
@@ -269,7 +362,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Heels
                                       </a>
@@ -277,7 +370,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Trainers
                                       </a>
@@ -285,7 +378,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Sandals
                                       </a>
@@ -293,7 +386,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Shoes
                                       </a>
@@ -301,7 +394,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Wide Fit Shoes
                                       </a>
@@ -317,7 +410,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         All Bags &amp; Accessories
                                       </a>
@@ -325,7 +418,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Accessories
                                       </a>
@@ -333,7 +426,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Bags &amp; Purses
                                       </a>
@@ -341,7 +434,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Luggage
                                       </a>
@@ -349,7 +442,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Belts
                                       </a>
@@ -357,7 +450,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Hats
                                       </a>
@@ -365,7 +458,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Hair Accessories
                                       </a>
@@ -373,7 +466,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Jewellery
                                       </a>
@@ -381,7 +474,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Travel Accessories
                                       </a>
@@ -397,7 +490,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         All Collections
                                       </a>
@@ -405,7 +498,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Occasionwear
                                       </a>
@@ -413,7 +506,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Going Out
                                       </a>
@@ -421,7 +514,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Workwear
                                       </a>
@@ -429,7 +522,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Holiday Shop
                                       </a>
@@ -437,7 +530,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                     <li className="list-styled-item">
                                       <a
                                         className="list-styled-link"
-                                        href="./shop.html"
+                                        href="./shop"
                                       >
                                         Jean Fit Guide
                                       </a>
@@ -456,7 +549,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                                       <div className="text-center">
                                         <a
                                           className="btn btn-white stretched-link"
-                                          href="./shop.html"
+                                          href="./shop"
                                         >
                                           Shop Sweaters
                                           <i className="fe fe-arrow-right ms-2"></i>
@@ -491,7 +584,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./shop.html"
+                                  href="./shop"
                                 >
                                   Default
                                 </a>
@@ -499,7 +592,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./shop-topbar.html"
+                                  href="./shop-topbar"
                                 >
                                   Topbar
                                 </a>
@@ -507,7 +600,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./shop-collapse.html"
+                                  href="./shop-collapse"
                                 >
                                   Collapse
                                 </a>
@@ -515,7 +608,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./shop-simple.html"
+                                  href="./shop-simple"
                                 >
                                   Simple
                                 </a>
@@ -523,7 +616,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./shop-masonry.html"
+                                  href="./shop-masonry"
                                 >
                                   Masonry
                                 </a>
@@ -536,7 +629,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./product.html"
+                                  href="./product"
                                 >
                                   Default
                                 </a>
@@ -544,7 +637,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./product-images-left.html"
+                                  href="./product-images-left"
                                 >
                                   Images Left
                                 </a>
@@ -552,7 +645,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./product-image-grid.html"
+                                  href="./product-image-grid"
                                 >
                                   Image Grid
                                 </a>
@@ -560,7 +653,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./product-image-slider.html"
+                                  href="./product-image-slider"
                                 >
                                   Image Slider
                                 </a>
@@ -568,7 +661,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./product-images-stacked.html"
+                                  href="./product-images-stacked"
                                 >
                                   Images Stacked
                                 </a>
@@ -582,7 +675,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./shopping-cart.html"
+                                  href="./shopping-cart"
                                 >
                                   Shopping Cart
                                 </a>
@@ -590,7 +683,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./checkout.html"
+                                  href="./checkout"
                                 >
                                   Checkout
                                 </a>
@@ -598,7 +691,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./order-completed.html"
+                                  href="./order-completed"
                                 >
                                   Order Completed
                                 </a>
@@ -606,7 +699,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./shipping-and-returns.html"
+                                  href="./shipping-and-returns"
                                 >
                                   Shipping &amp; Returns
                                 </a>
@@ -619,7 +712,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-order.html"
+                                  href="./account-order"
                                 >
                                   Order
                                 </a>
@@ -627,7 +720,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-orders.html"
+                                  href="./account-orders"
                                 >
                                   Orders
                                 </a>
@@ -635,7 +728,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-wishlist.html"
+                                  href="./account-wishlist"
                                 >
                                   Wishlist
                                 </a>
@@ -643,7 +736,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-personal-info.html"
+                                  href="./account-personal-info"
                                 >
                                   Personal Info
                                 </a>
@@ -651,7 +744,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-address.html"
+                                  href="./account-address"
                                 >
                                   Addresses
                                 </a>
@@ -659,7 +752,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-address-edit.html"
+                                  href="./account-address-edit"
                                 >
                                   Addresses: New
                                 </a>
@@ -671,7 +764,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-payment.html"
+                                  href="./account-payment"
                                 >
                                   Payment
                                 </a>
@@ -679,7 +772,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-payment-edit.html"
+                                  href="./account-payment-edit"
                                 >
                                   Payment: New
                                 </a>
@@ -687,7 +780,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./account-payment-choose.html"
+                                  href="./account-payment-choose"
                                 >
                                   Payment: Choose
                                 </a>
@@ -695,7 +788,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                               <li className="list-styled-item">
                                 <a
                                   className="list-styled-link"
-                                  href="./auth.html"
+                                  href="./auth"
                                 >
                                   Auth
                                 </a>
@@ -785,14 +878,14 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                       <div className="card-body">
                         <ul className="list-styled fs-sm">
                           <li className="list-styled-item">
-                            <a className="list-styled-link" href="./about.html">
+                            <a className="list-styled-link" href="./about">
                               About
                             </a>
                           </li>
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./contact-us.html"
+                              href="./contact-us"
                             >
                               Contact Us
                             </a>
@@ -800,20 +893,20 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./store-locator.html"
+                              href="./store-locator"
                             >
                               Store Locator
                             </a>
                           </li>
                           <li className="list-styled-item">
-                            <a className="list-styled-link" href="./faq.html">
+                            <a className="list-styled-link" href="./faq">
                               FAQ
                             </a>
                           </li>
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./coming-soon.html"
+                              href="./coming-soon"
                             >
                               Coming Soon
                             </a>
@@ -838,14 +931,14 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                       <div className="card-body">
                         <ul className="list-styled fs-sm">
                           <li className="list-styled-item">
-                            <a className="list-styled-link" href="./blog.html">
+                            <a className="list-styled-link" href="./blog">
                               Blog
                             </a>
                           </li>
                           <li className="list-styled-item">
                             <a
                               className="list-styled-link"
-                              href="./blog-post.html"
+                              href="./blog-post"
                             >
                               Blog Post
                             </a>
@@ -856,7 +949,7 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                   </div>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="docs/getting-started.html">
+                  <a className="nav-link">
                     Docs
                   </a>
                 </li>
@@ -868,28 +961,48 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                     className="nav-link"
                     data-bs-toggle="offcanvas"
                     href="#modalSearch"
+                    onClick={handleShowSearch}
                   >
                     <i className="fe fe-search"></i>
                   </a>
                 </li>
                 <li className="nav-item ms-lg-n4">
-                  <a className="nav-link" href="./account-orders">
-                    <i className="fe fe-user"></i>
-                  </a>
+                  {isLoggedIn ? (
+                    <Link to={"./account-orders"}>
+                      <a className="nav-link">
+                        <i className="fe fe-user"></i>
+                      </a>
+                    </Link>
+                  ) : (
+                    <Link to={"./login"}>
+                      <a className="nav-link">
+                        <i className="fe fe-user"></i>
+                      </a>
+                    </Link>
+                  )}
                 </li>
                 <li className="nav-item ms-lg-n4">
-                  <a className="nav-link" href="./account-wishlist">
-                    <i className="fe fe-heart"></i>
-                  </a>
+                  {isLoggedIn ? (
+                    <Link to={"./account-wishlist"}>
+                      <a className="nav-link">
+                        <i className="fe fe-heart"></i>
+                      </a>{" "}
+                    </Link>
+                  ) : (
+                    <Link to={"./login"}>
+                      {" "}
+                      <a className="nav-link">
+                        <i className="fe fe-heart"></i>
+                      </a>
+                    </Link>
+                  )}
                 </li>
                 <li className="nav-item ms-lg-n4">
                   <a
                     className="nav-link"
                     data-bs-toggle="offcanvas"
                     href="#modalShoppingCart"
-                    onClick={() => {
-                      setVisibility(true);
-                    }}
+                    onClick={handleShowCart}
                   >
                     <span data-cart-items={product.length}>
                       <i className="fe fe-shopping-cart"></i>
@@ -897,6 +1010,161 @@ const Navbar: React.FC<NavbarProps> = ({ product }) => {
                   </a>
                 </li>
               </ul>
+              <Offcanvas
+                show={showCart}
+                onHide={handleCloseCart}
+                placement="end"
+              >
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title>
+                    Your Cart ({product.length})
+                  </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                  <ul className="list-group list-group-lg list-group-flush">
+                    {product.map((item) => (
+                      <li className="list-group-item" key={item.id}>
+                        <div className="row align-items-center">
+                          <div className="col-4">
+                            <a href="#">
+                              <img
+                                className="img-fluid"
+                                src={item.image[0]}
+                                alt="..."
+                              />
+                            </a>
+                          </div>
+                          <div className="col-8">
+                            <p className="fs-sm fw-bold mb-6">
+                              <a className="text-body" href="#">
+                                {item.name}
+                              </a>
+                              <br />
+                              <span className="text-muted">${item.price}</span>
+                            </p>
+                            <div className="d-flex align-items-center">
+                              <select
+                                className="form-select form-select-xxs w-auto"
+                                title="select"
+                              >
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                              </select>
+                              <a
+                                className="fs-xs text-gray-400 ms-auto"
+                                href="#!"
+                              >
+                                <i className="fe fe-x"></i> Remove
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                </Offcanvas.Body>
+                <div className="offcanvas-footer justify-between lh-fixed fs-sm bg-light mt-auto w-100">
+                  <strong>Subtotal</strong>
+                  <strong className="ms-auto">${total}</strong>
+                </div>
+                <div className="offcanvas-body">
+                  <a className="btn w-100 btn-dark" href="./checkout">
+                    Continue to Checkout
+                  </a>
+                  <a
+                    className="btn w-100 btn-outline-dark mt-2"
+                    href="./cart"
+                  >
+                    View Cart
+                  </a>
+                </div>
+              </Offcanvas>
+              <Offcanvas
+                show={showSearch}
+                onHide={handleCloseSearch}
+                placement="end"
+              >
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title>
+                    <div className="offcanvas-header lh-fixed fs-lg">
+                      <strong className="mx-auto">Search Products</strong>
+                    </div>
+                  </Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                  <div className="offcanvas-body">
+                    <form>
+                      <div className="form-group">
+                        <label className="visually-hidden">Categories:</label>
+                        <select
+                          className="form-select"
+                          id="modalSearchCategories"
+                          title="select"
+                          onChange={(e) => setCategory(e.target.value)}
+                        >
+                          <option>All Categories</option>
+                          <option>Phòng khách</option>
+                          <option>Sofa</option>
+                          <option>Phòng ngủ</option>
+                          <option>Đệm</option>
+                        </select>
+                      </div>
+                      <div className="input-group input-group-merge">
+                        <input
+                          className="form-control"
+                          type="search"
+                          placeholder="Search"
+                        />
+                        <div className="input-group-append">
+                          <button
+                            className="btn btn-outline-border"
+                            type="submit"
+                            title="search"
+                          >
+                            <i className="fe fe-search"></i>
+                          </button>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div className="offcanvas-body border-top fs-sm">
+                    <p>Search Results:</p>
+
+                    {products.map((prod) => (
+                      <div
+                        className="row align-items-center position-relative mb-5"
+                        key={prod.id}
+                      >
+                        <Link to={`/furniture/${prod.id}`}>
+                          <div className="col-4 col-md-3" title="image">
+                            <img
+                              className="img-fluid"
+                              src={prod.image[0]}
+                              alt="..."
+                            />
+                          </div>
+                          <div className="col position-static">
+                            <p className="mb-0 fw-bold">
+                              <a className="stretched-link text-body">
+                                {prod.name}
+                              </a>
+                              <br />
+                              <span className="text-muted">${prod.price}</span>
+                            </p>
+                          </div>
+                        </Link>
+                      </div>
+                    ))}
+                    <a
+                      className="btn btn-link px-0 text-reset"
+                      href="./shop"
+                    >
+                      View All <i className="fe fe-arrow-right ms-2"></i>
+                    </a>
+                  </div>
+                </Offcanvas.Body>
+              </Offcanvas>
             </div>
           </div>
         </nav>

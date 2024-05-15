@@ -62,6 +62,42 @@ const products: product[] = [
     ],
     5
   ),
+  new product(
+    "6",
+    "Sofa ONA HIM 1 chỗ da nâu S3",
+    ["Armchair", "Sofa "],
+    200000,
+    30000,
+    [
+      "assets/img/products/sofa5_1.jpg",
+      "assets/img/products/sofa5_2.jpg",
+    ],
+    4
+  ),
+  new product(
+    "7",
+    "Sofa Bolero 3 chỗ + Đôn M3 vải xám MB4010",
+    ["Phòng khách", "Sofa"],
+    350000,
+    40000,
+    [
+      "assets/img/products/sofa3_1.jpg",
+      "assets/img/products/sofa3_2.jpg",
+    ],
+    3
+  ),
+  new product(
+    "8",
+    "bàn nước bar 200x75 75167k",
+    ["Bàn nước", "Phòng khách "],
+    200000,
+    30000,
+    [
+      "assets/img/products/table3_1.jpg",
+      "assets/img/products/table3_2.jpg",
+    ],
+    1
+  ),
   // Thêm các sản phẩm khác ở đây nếu cần
 ];
 interface ListProps {
@@ -76,7 +112,7 @@ const List: React.FC<ListProps> = ({ product, setProduct }) => {
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12 col-md-10 col-lg-8 col-xl-6">
-              <h2 className="mb-4 text-center">Top month Sellers</h2>
+              <h2 className="mb-4 text-center">Top Sellers</h2>
 
               <div className="nav justify-content-center mb-10">
                 <a
